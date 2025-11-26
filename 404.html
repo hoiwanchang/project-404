@@ -82,11 +82,9 @@
     <div class="content">
         <div class="error-code">404</div>
         <div class="error-message">
-            <p>抱歉，您访问的页面不存在</p>
-            <p>可能是地址错误或者页面已被移除</p>
+            <p>Page not found</p>
         </div>
-        <a href="/" class="home-button">返回首页</a>
-        <div class="subtitle">洛伦兹吸引子 - 混沌理论的可视化</div>
+        <button onClick=window.history.back() class="home-button">Go to Back</button>
     </div>
 
     <script>
@@ -96,8 +94,8 @@
         
         // 设置canvas尺寸为窗口大小
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth * 0.75;
+            canvas.height = window.innerHeight * 0.75;
         }
         
         window.addEventListener('resize', resizeCanvas);
@@ -120,7 +118,7 @@
         
         // 存储吸引子轨迹的点
         const points = [];
-        const maxPoints = 5000; // 最大点数
+        const maxPoints = 200; // 最大点数
         
         // 计算洛伦兹吸引子的下一个点
         function lorenz(x, y, z, dt) {

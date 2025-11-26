@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 页面未找到</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: white;
+        }
+        
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .error-code {
+            font-size: 10rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 195, 255, 0.7);
+            color: #00c3ff;
+        }
+        
+        .error-message {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        .home-button {
+            background: transparent;
+            color: #00c3ff;
+            border: 2px solid #00c3ff;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .home-button:hover {
+            background: rgba(0, 195, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 195, 255, 0.5);
+        }
+        
+        .subtitle {
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div class="content">
+        <div class="error-code">404</div>
+        <div class="error-message">
+            <p>抱歉，您访问的页面不存在</p>
+            <p>可能是地址错误或者页面已被移除</p>
+        </div>
+        <a href="/" class="home-button">返回首页</a>
+        <div class="subtitle">洛伦兹吸引子 - 混沌理论的可视化</div>
+    </div>
+
+    <script>
+        // 获取canvas元素和上下文
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // 设置canvas尺寸为窗口大小
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        // 洛伦兹吸引子参数
+        const sigma = 10;
+        const rho = 28;
+        const beta = 8/3;
+        
+        // 初始值
+        let x = 0.1;
+        let y = 0;
+        let z = 0;
+        
+        // 缩放和偏移参数，用于在屏幕上正确显示
+        const scale = 8;
+        const offsetX = canvas.width / 2;
+        const offsetY = canvas.height / 2;
+        
+        // 存储吸引子轨迹的点
+        const points = [];
+        const maxPoints = 5000; // 最大点数
+        
+        // 计算洛伦兹吸引子的下一个点
+        function lorenz(x, y, z, dt) {
+            const dx = sigma * (y - x) * dt;
+            const dy = (x * (rho - z) - y) * dt;
+            const dz = (x * y - beta * z) * dt;
+            
+            return {
+                x: x + dx,
+                y: y + dy,
+                z: z + dz
+            };
+        }
+        
+        // 绘制函数
+        function draw() {
+            // 创建半透明的黑色覆盖层，产生轨迹效果
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 更新吸引子点
+            const dt = 0.01;
+            const next = lorenz(x, y, z, dt);
+            x = next.x;
+            y = next.y;
+            z = next.z;
+            
+            // 添加新点到轨迹数组
+            points.push({
+                x: x * scale + offsetX,
+                y: y * scale + offsetY
+            });
+            
+            // 如果点数超过最大值，移除最早的点
+            if (points.length > maxPoints) {
+                points.shift();
+            }
+            
+            // 绘制轨迹
+            if (points.length > 1) {
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+                
+                for (let i = 1; i < points.length; i++) {
+                    // 根据点的位置设置颜色
+                    const hue = (i / points.length * 360 + Date.now() / 50) % 360;
+                    ctx.strokeStyle = `hsl(${hue}, 100%, 60%)`;
+                    ctx.lineWidth = 1.5;
+                    
+                    ctx.lineTo(points[i].x, points[i].y);
+                    
+                    // 每绘制一定数量的点后，设置新的路径以应用颜色变化
+                    if (i % 20 === 0) {
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(points[i].x, points[i].y);
+                    }
+                }
+                ctx.stroke();
+            }
+            
+            // 继续动画循环
+            requestAnimationFrame(draw);
+        }
+        
+        // 启动动画
+        draw();
+    </script>
+</body>
+</html>

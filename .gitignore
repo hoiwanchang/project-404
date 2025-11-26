@@ -1,1 +1,83 @@
-Nothing needs to be added to .gitignore for this change list. The file '404-garfield.html' is a source file that should be tracked in version control.
+```
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Testing
+.coverage
+coverage/
+htmlcov/
+.nyc_output/
+.mypy_cache/
+.pytest_cache/
+.tox/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Archives
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.gz
+*.rar
+*.7z
+
+# Vite
+!.vite/
+vite.config.js
+
+# Compiled and binary files
+*.exe
+*.dll
+*.so
+*.a
+*.obj
+*.out
+*.class
+*.o
+
+# Gradle
+.gradle/
+build/
+
+# Target directory (Rust, etc.)
+target/
+```

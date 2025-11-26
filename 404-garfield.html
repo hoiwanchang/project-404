@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a3d, #ffd4a3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .error-code {
+            font-size: 15vw;
+            font-weight: bold;
+            color: #f8c300;
+            text-shadow: 
+                0 0 10px rgba(248, 195, 0, 0.5),
+                0 0 20px rgba(248, 195, 0, 0.4),
+                0 0 30px rgba(248, 195, 0, 0.3);
+            position: relative;
+            margin-bottom: 2rem;
+            letter-spacing: -0.05em;
+        }
+
+        .error-code::before {
+            content: '404';
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #e63946;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.6;
+        }
+
+        .error-text {
+            font-size: 2rem;
+            color: #2a9d8f;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
+        }
+
+        .home-btn {
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .home-btn:hover {
+            background: #d90429;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .garfield {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            z-index: 5;
+            transition: none;
+        }
+
+        .garfield-body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Pixel art style for Garfield */
+        .garfield-pixel {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+        }
+
+        /* Background elements */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(248, 195, 0, 0.1);
+            z-index: 1;
+        }
+
+        .circle:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 15%;
+        }
+
+        .circle:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            right: 10%;
+        }
+
+        .circle:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 40%;
+            right: 20%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative circles -->
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+
+    <div class="container">
+        <div class="error-code">404</div>
+        <div class="error-text">Oops! Page Not Found</div>
+        <a href="/" class="home-btn">Go Home</a>
+    </div>
+
+    <!-- Garfield pixel character -->
+    <div class="garfield" id="garfield">
+        <div class="garfield-body">
+            <!-- Pixel art will be generated via JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Create Garfield pixel art
+        function createGarfield() {
+            const garfieldBody = document.querySelector('.garfield-body');
+            garfieldBody.innerHTML = '';
+
+            // Define Garfield's pixel art structure (10x10 grid)
+            const pixels = [
+                // Row 0
+                {x: 3, y: 0, color: '#f8c300'},
+                {x: 4, y: 0, color: '#f8c300'},
+                {x: 5, y: 0, color: '#f8c300'},
+                {x: 6, y: 0, color: '#f8c300'},
+
+                // Row 1
+                {x: 2, y: 1, color: '#f8c300'},
+                {x: 3, y: 1, color: '#f8c300'},
+                {x: 4, y: 1, color: '#f8c300'},
+                {x: 5, y: 1, color: '#f8c300'},
+                {x: 6, y: 1, color: '#f8c300'},
+                {x: 7, y: 1, color: '#f8c300'},
+
+                // Row 2
+                {x: 1, y: 2, color: '#f8c300'},
+                {x: 2, y: 2, color: '#f8c300'},
+                {x: 3, y: 2, color: '#f8c300'},
+                {x: 4, y: 2, color: '#e63946'},
+                {x: 5, y: 2, color: '#e63946'},
+                {x: 6, y: 2, color: '#f8c300'},
+                {x: 7, y: 2, color: '#f8c300'},
+                {x: 8, y: 2, color: '#f8c300'},
+
+                // Row 3
+                {x: 1, y: 3, color: '#f8c300'},
+                {x: 2, y: 3, color: '#f8c300'},
+                {x: 3, y: 3, color: '#e63946'},
+                {x: 4, y: 3, color: '#e63946'},
+                {x: 5, y: 3, color: '#e63946'},
+                {x: 6, y: 3, color: '#e63946'},
+                {x: 7, y: 3, color: '#f8c300'},
+                {x: 8, y: 3, color: '#f8c300'},
+
+                // Row 4
+                {x: 0, y: 4, color: '#f8c300'},
+                {x: 1, y: 4, color: '#f8c300'},
+                {x: 2, y: 4, color: '#f8c300'},
+                {x: 3, y: 4, color: '#f8c300'},
+                {x: 4, y: 4, color: '#f8c300'},
+                {x: 5, y: 4, color: '#f8c300'},
+                {x: 6, y: 4, color: '#f8c300'},
+                {x: 7, y: 4, color: '#f8c300'},
+                {x: 8, y: 4, color: '#f8c300'},
+                {x: 9, y: 4, color: '#f8c300'},
+
+                // Row 5
+                {x: 0, y: 5, color: '#f8c300'},
+                {x: 1, y: 5, color: '#f8c300'},
+                {x: 2, y: 5, color: '#2a9d8f'},
+                {x: 3, y: 5, color: '#2a9d8f'},
+                {x: 4, y: 5, color: '#2a9d8f'},
+                {x: 5, y: 5, color: '#2a9d8f'},
+                {x: 6, y: 5, color: '#2a9d8f'},
+                {x: 7, y: 5, color: '#2a9d8f'},
+                {x: 8, y: 5, color: '#f8c300'},
+                {x: 9, y: 5, color: '#f8c300'},
+
+                // Row 6
+                {x: 0, y: 6, color: '#f8c300'},
+                {x: 1, y: 6, color: '#f8c300'},
+                {x: 2, y: 6, color: '#2a9d8f'},
+                {x: 3, y: 6, color: '#f8c300'},
+                {x: 4, y: 6, color: '#f8c300'},
+                {x: 5, y: 6, color: '#f8c300'},
+                {x: 6, y: 6, color: '#f8c300'},
+                {x: 7, y: 6, color: '#2a9d8f'},
+                {x: 8, y: 6, color: '#f8c300'},
+                {x: 9, y: 6, color: '#f8c300'},
+
+                // Row 7
+                {x: 1, y: 7, color: '#f8c300'},
+                {x: 2, y: 7, color: '#f8c300'},
+                {x: 3, y: 7, color: '#f8c300'},
+                {x: 4, y: 7, color: '#f8c300'},
+                {x: 5, y: 7, color: '#f8c300'},
+                {x: 6, y: 7, color: '#f8c300'},
+                {x: 7, y: 7, color: '#f8c300'},
+                {x: 8, y: 7, color: '#f8c300'},
+
+                // Row 8
+                {x: 2, y: 8, color: '#f8c300'},
+                {x: 3, y: 8, color: '#f8c300'},
+                {x: 4, y: 8, color: '#f8c300'},
+                {x: 5, y: 8, color: '#f8c300'},
+                {x: 6, y: 8, color: '#f8c300'},
+                {x: 7, y: 8, color: '#f8c300'},
+
+                // Row 9
+                {x: 3, y: 9, color: '#f8c300'},
+                {x: 4, y: 9, color: '#f8c300'},
+                {x: 5, y: 9, color: '#f8c300'},
+                {x: 6, y: 9, color: '#f8c300'}
+            ];
+
+            pixels.forEach(pixel => {
+                const pixelElement = document.createElement('div');
+                pixelElement.className = 'garfield-pixel';
+                pixelElement.style.left = pixel.x * 10 + 'px';
+                pixelElement.style.top = pixel.y * 10 + 'px';
+                pixelElement.style.backgroundColor = pixel.color;
+                garfieldBody.appendChild(pixelElement);
+            });
+        }
+
+        // Initialize Garfield
+        createGarfield();
+
+        // Make Garfield move around
+        const garfield = document.getElementById('garfield');
+        let posX = Math.random() * (window.innerWidth - 100);
+        let posY = Math.random() * (window.innerHeight - 100);
+        let speedX = (Math.random() - 0.5) * 2;
+        let speedY = (Math.random() - 0.5) * 2;
+
+        function moveGarfield() {
+            // Update position
+            posX += speedX;
+            posY += speedY;
+
+            // Boundary check - bounce off walls
+            if (posX <= 0 || posX >= window.innerWidth - 100) {
+                speedX = -speedX;
+                // Change direction randomly when hitting a wall
+                speedX = (Math.random() - 0.5) * 2;
+            }
+            
+            if (posY <= 0 || posY >= window.innerHeight - 100) {
+                speedY = -speedY;
+                // Change direction randomly when hitting a wall
+                speedY = (Math.random() - 0.5) * 2;
+            }
+
+            // Apply new position
+            garfield.style.left = posX + 'px';
+            garfield.style.top = posY + 'px';
+
+            // Occasionally change direction for more natural movement
+            if (Math.random() < 0.02) {
+                speedX = (Math.random() - 0.5) * 2;
+                speedY = (Math.random() - 0.5) * 2;
+            }
+
+            requestAnimationFrame(moveGarfield);
+        }
+
+        // Start the animation
+        moveGarfield();
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            // Keep Garfield within bounds after resize
+            if (posX > window.innerWidth - 100) posX = window.innerWidth - 100;
+            if (posY > window.innerHeight - 100) posY = window.innerHeight - 100;
+        });
+    </script>
+</body>
+</html>
